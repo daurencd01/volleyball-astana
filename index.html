@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Волейбол в Астане - Запись на игры</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+        }
+        .booking-card {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .court-image {
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .court-card:hover .court-image {
+            transform: scale(1.03);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .active-nav::after {
+            width: 100%;
+        }
+        .price-card {
+            transition: all 0.3s ease;
+        }
+        .price-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .schedule-day.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-volleyball-ball text-blue-600 text-2xl"></i>
+                <h1 class="text-xl font-bold text-gray-800">Волейбол Астана</h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link active-nav text-gray-800 font-medium">Главная</a>
+                <a href="#courts" class="nav-link text-gray-600 hover:text-gray-800 font-medium">Площадки</a>
+                <a href="#pricing" class="nav-link text-gray-600 hover:text-gray-800 font-medium">Цены</a>
+                <a href="#schedule" class="nav-link text-gray-600 hover:text-gray-800 font-medium">Расписание</a>
+                <a href="#booking" class="nav-link text-gray-600 hover:text-gray-800 font-medium">Запись</a>
+            </nav>
+            
+            <div class="flex items-center space-x-4">
+                <button id="loginBtn" class="hidden md:block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition">
+                    Войти
+                </button>
+                <button id="mobileMenuBtn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-t">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#home" class="py-2 text-gray-800 font-medium border-b">Главная</a>
+                <a href="#courts" class="py-2 text-gray-600 border-b">Площадки</a>
+                <a href="#pricing" class="py-2 text-gray-600 border-b">Цены</a>
+                <a href="#schedule" class="py-2 text-gray-600 border-b">Расписание</a>
+                <a href="#booking" class="py-2 text-gray-600 border-b">Запись</a>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition my-2">
+                    Войти
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white py-16 md:py-24">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6">Играйте в волейбол в лучших залах Астаны</h1>
+                <p class="text-xl mb-8 opacity-90">Записывайтесь на игры с удобным расписанием, выбирайте подходящий уровень и играйте с единомышленниками</p>
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    <a href="#booking" class="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 rounded-lg font-bold text-center transition">
+                        Записаться сейчас
+                    </a>
+                    <a href="#courts" class="border-2 border-white hover:bg-white hover:bg-opacity-10 px-6 py-3 rounded-lg font-bold text-center transition">
+                        Наши площадки
+                    </a>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                     alt="Волейбол в Астане" 
+                     class="rounded-xl shadow-2xl w-full max-w-md">
+            </div>
+        </div>
+    </section>
+
+    <!-- Courts Section -->
+    <section id="courts" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Наши площадки</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Court 1 -->
+                <div class="court-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                         alt="Спортивный комплекс 'Достык'" 
+                         class="court-image w-full">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Спорткомплекс "Достык"</h3>
+                        <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> ул. Достык, 13</p>
+                        <p class="text-gray-700 mb-4">Современный зал с профессиональным покрытием и освещением. Идеально подходит для турниров.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-blue-600 font-bold">5 000 ₸/час</span>
+                            <button class="text-blue-600 hover:text-blue-800 font-medium">Подробнее →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Court 2 -->
+                <div class="court-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                         alt="Зал 'Олимпийский'" 
+                         class="court-image w-full">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Зал "Олимпийский"</h3>
+                        <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> пр. Туран, 24</p>
+                        <p class="text-gray-700 mb-4">Просторный зал с трибунами на 200 мест. Часто проводятся любительские турниры.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-blue-600 font-bold">4 500 ₸/час</span>
+                            <button class="text-blue-600 hover:text-blue-800 font-medium">Подробнее →</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Court 3 -->
+                <div class="court-card bg-white rounded-xl overflow-hidden shadow-md">
+                    <img src="https://images.unsplash.com/photo-1544467199-589e15a8a9dc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                         alt="Фитнес клуб 'Energy'" 
+                         class="court-image w-full">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-gray-800">Фитнес клуб "Energy"</h3>
+                        <p class="text-gray-600 mb-4"><i class="fas fa-map-marker-alt text-blue-500 mr-2"></i> ул. Кунаева, 12/1</p>
+                        <p class="text-gray-700 mb-4">Уютный зал с возможностью аренды на вечерние часы. Отличное место для регулярных игр.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-blue-600 font-bold">3 800  ₸/час</span>
+                            <button class="text-blue-600 hover:text-blue-800 font-medium">Подробнее →</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold transition">
+                    Показать все площадки
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Наши тарифы</h2>
+            <p class="text-xl text-center text-gray-600 mb-12">Выберите подходящий вариант игры</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Beginner -->
+                <div class="price-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-blue-400">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-gray-800">Любительский</h3>
+                    <p class="text-gray-600 text-center mb-6">Для начинающих и тех, кто играет для удовольствия</p>
+                    <div class="text-center mb-6">
+                        <span class="text-4xl font-bold text-blue-600">3 500  ₸</span>
+                        <span class="text-gray-500">/игра</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>2 часа игры</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Группы до 12 человек</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Мячи предоставляются</span>
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-times text-red-400 mr-2"></i>
+                            <span>Без тренера</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition">
+                        Выбрать
+                    </button>
+                </div>
+                
+                <!-- Popular -->
+                <div class="price-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-blue-600 transform scale-105 relative">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white px-3 py-1 rounded-bl-lg rounded-tr-lg text-sm font-bold">
+                        Популярно
+                    </div>
+                    <h3 class="text-2xl font-bold text-center mb-4 text-gray-800">Полупрофессиональный</h3>
+                    <p class="text-gray-600 text-center mb-6">Для опытных игроков и регулярных тренировок</p>
+                    <div class="text-center mb-6">
+                        <span class="text-4xl font-bold text-blue-600">5 000 ₸</span>
+                        <span class="text-gray-500">/игра</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>2.5 часа игры</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Группы до 14 человек</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Профессиональные мячи</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Консультация тренера</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition">
+                        Выбрать
+                    </button>
+                </div>
+                
+                <!-- Pro -->
+                <div class="price-card bg-white p-8 rounded-xl shadow-lg border-t-4 border-blue-800">
+                    <h3 class="text-2xl font-bold text-center mb-4 text-gray-800">Турнирный</h3>
+                    <p class="text-gray-600 text-center mb-6">Для команд и профессиональных игроков</p>
+                    <div class="text-center mb-6">
+                        <span class="text-4xl font-bold text-blue-600">8 000 ₸</span>
+                        <span class="text-gray-500">/игра</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>3 часа игры</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Командные заявки</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Мячи Mikasa</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-green-500 mr-2"></i>
+                            <span>Судья и статистика</span>
+                        </li>
+                    </ul>
+                    <button class="w-full bg-blue-800 hover:bg-blue-900 text-white py-3 rounded-lg font-bold transition">
+                        Выбрать
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-4 text-gray-800">Расписание игр</h2>
+            <p class="text-xl text-center text-gray-600 mb-12">Выберите удобное время для игры</p>
+            
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+                <!-- Days selector -->
+                <div class="flex overflow-x-auto bg-gray-100 p-2">
+                    <button class="schedule-day flex-shrink-0 px-6 py-3 rounded-lg mx-1 font-medium bg-white">Сегодня</button>
+                    <button class="schedule-day flex-shrink-0 px-6 py-3 rounded-lg mx-1 font-medium hover:bg-gray-200">Завтра</button>
+                    <button class="schedule-day flex-shrink-0 px-6 py-3 rounded-lg mx-1 font-medium hover:bg-gray-200">Пт, 14 июл</button>
+                    <button class="schedule-day flex-shrink-0 px-6 py-3 rounded-lg mx-1 font-medium hover:bg-gray-200">Сб, 15 июл</button>
+                    <button class="schedule-day flex-shrink-0 px-6 py-3 rounded-lg mx-1 font-medium hover:bg-gray-200">Вс, 16 июл</button>
+                    <button class="schedule-day flex-shrink-0 px-6 py-3 rounded-lg mx-1 font-medium hover:bg-gray-200">Пн, 17 июл</button>
+                </div>
+                
+                <!-- Time slots -->
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-4 text-gray-800">Спорткомплекс "Достык"</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Time slot 1 -->
+                        <div class="booking-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">18:00 - 20:00</span>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Свободно</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">Любительский уровень</p>
+                            <p class="text-gray-800 font-medium mb-3">3 500 ₸ с человека</p>
+                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm font-medium transition">
+                                Записаться
+                            </button>
+                        </div>
+                        
+                        <!-- Time slot 2 -->
+                        <div class="booking-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">20:00 - 22:30</span>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">3 места</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">Полупрофессиональный</p>
+                            <p class="text-gray-800 font-medium mb-3">5 000  ₸ с человека</p>
+                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm font-medium transition">
+                                Записаться
+                            </button>
+                        </div>
+                        
+                        <!-- Time slot 3 -->
+                        <div class="booking-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">22:30 - 00:30</span>
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">Команда</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">Турнирный уровень</p>
+                            <p class="text-gray-800 font-medium mb-3">8 000  ₸ с команды</p>
+                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm font-medium transition">
+                                Записать команду
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-gray-800">Зал "Олимпийский"</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <!-- Time slot 4 -->
+                        <div class="booking-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">19:00 - 21:00</span>
+                                <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Свободно</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">Любительский уровень</p>
+                            <p class="text-gray-800 font-medium mb-3">3 500  ₸ с человека</p>
+                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm font-medium transition">
+                                Записаться
+                            </button>
+                        </div>
+                        
+                        <!-- Time slot 5 -->
+                        <div class="booking-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="flex justify-between items-start mb-2">
+                                <span class="font-bold text-gray-800">21:00 - 23:30</span>
+                                <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">5 мест</span>
+                            </div>
+                            <p class="text-gray-600 mb-3">Полупрофессиональный</p>
+                            <p class="text-gray-800 font-medium mb-3">5 000 ₸ с человека</p>
+                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg text-sm font-medium transition">
+                                Записаться
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="md:flex">
+                    <div class="md:w-1/2 bg-blue-600 text-white p-8 flex flex-col justify-center">
+                        <h2 class="text-3xl font-bold mb-4">Запись на игру</h2>
+                        <p class="mb-6">Выберите удобное время, площадку и уровень игры. Мы свяжемся с вами для подтверждения.</p>
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-blue-500 p-3 rounded-full">
+                                <i class="fas fa-phone-alt text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm opacity-80">Есть вопросы?</p>
+                                <p class="font-bold">+7 777 123 4567</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-1/2 p-8">
+                        <form id="bookingForm">
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 font-medium mb-2">Ваше имя</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="phone" class="block text-gray-700 font-medium mb-2">Телефон</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="court" class="block text-gray-700 font-medium mb-2">Площадка</label>
+                                <select id="court" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Выберите площадку</option>
+                                    <option value="dostyk">Спорткомплекс "Достык"</option>
+                                    <option value="olympic">Зал "Олимпийский"</option>
+                                    <option value="energy">Фитнес клуб "Energy"</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="level" class="block text-gray-700 font-medium mb-2">Уровень игры</label>
+                                <select id="level" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Выберите уровень</option>
+                                    <option value="beginner">Любительский (3 500 ₸)</option>
+                                    <option value="intermediate">Полупрофессиональный (5 000  ₸)</option>
+                                    <option value="pro">Турнирный (8 000 ₸)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="date" class="block text-gray-700 font-medium mb-2">Дата и время</label>
+                                <input type="datetime-local" id="date" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-bold transition">
+                                Записаться на игру
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-8 text-gray-800">Способы оплаты</h2>
+            <div class="flex flex-wrap justify-center items-center gap-8 max-w-4xl mx-auto">
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <img src="https://kaspi.kz/img/Logo.svg" alt="Kaspi" class="h-12">
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <i class="fab fa-cc-visa text-4xl text-blue-900"></i>
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <i class="fab fa-cc-mastercard text-4xl text-red-600"></i>
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <i class="fas fa-money-bill-wave text-4xl text-green-600"></i>
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <i class="fab fa-cc-paypal text-4xl text-blue-700"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Частые вопросы</h2>
+            
+            <div class="space-y-4">
+                <!-- FAQ Item 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="faq-question w-full flex justify-between items-center p-6 text-left font-medium text-gray-800 hover:bg-gray-50 transition">
+                        <span>Как записаться на игру?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 hidden text-gray-600">
+                        Вы можете записаться через форму на сайте, выбрав удобное время и площадку. Также можно позвонить нам по телефону +7 777 123 4567 для записи.
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="faq-question w-full flex justify-between items-center p-6 text-left font-medium text-gray-800 hover:bg-gray-50 transition">
+                        <span>Можно ли отменить запись?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 hidden text-gray-600">
+                        Да, вы можете отменить запись не позднее чем за 24 часа до начала игры. Для этого позвоните нам или отмените запись в личном кабинете.
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="faq-question w-full flex justify-between items-center p-6 text-left font-medium text-gray-800 hover:bg-gray-50 transition">
+                        <span>Какие меры безопасности принимаются?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 hidden text-gray-600">
+                        Все залы регулярно дезинфицируются, предоставляются антисептики. Рекомендуем иметь с собой сменную обувь для игры.
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <button class="faq-question w-full flex justify-between items-center p-6 text-left font-medium text-gray-800 hover:bg-gray-50 transition">
+                        <span>Можно ли прийти без записи?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-6 hidden text-gray-600">
+                        Рекомендуем записываться заранее, так как количество мест ограничено. Если будут свободные места, мы сможем вас принять.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Отзывы игроков</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold mr-4">АК</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Алексей К.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Отличные площадки и организация. Играю регулярно уже больше года, всегда нахожу подходящее время. Особенно нравится зал в Достыке."</p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold mr-4">МС</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Марина С.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Удобная система записи и оплаты через Kaspi. Всегда предупреждают об изменениях. Игроки подбираются одного уровня, что делает игру комфортной."</p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold mr-4">ДТ</div>
+                        <div>
+                            <h4 class="font-bold text-gray-800">Дамир Т.</h4>
+                            <div class="flex text-yellow-400">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600">"Организовали корпоративный турнир для нашей компании. Все прошло на высшем уровне: судьи, площадка, организация. Будем обращаться еще!"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-6">Готовы играть в волейбол?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">Присоединяйтесь к нашему сообществу любителей волейбола в Астане</p>
+            <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+                <a href="#booking" class="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 rounded-lg font-bold transition">
+                    Записаться на игру
+                </a>
+                <a href="tel:+77771234567" class="border-2 border-white hover:bg-white hover:bg-opacity-10 px-8 py-3 rounded-lg font-bold transition">
+                    <i class="fas fa-phone-alt mr-2"></i> Позвонить нам
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-volleyball-ball text-blue-400 mr-2"></i> Волейбол Астана
+                    </h3>
+                    <p class="text-gray-400">Лучшие площадки для игры в волейбол в Нур-Султане. Записывайтесь онлайн в любое время.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Контакты</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt text-blue-400 mr-2"></i> +7 777 123 4567
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope text-blue-400 mr-2"></i> info@volleyball-astana.kz
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-blue-400 mr-2"></i> г. Нур-Султан
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Быстрые ссылки</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#home" class="hover:text-white transition">Главная</a></li>
+                        <li><a href="#courts" class="hover:text-white transition">Площадки</a></li>
+                        <li><a href="#pricing" class="hover:text-white transition">Цены</a></li>
+                        <li><a href="#schedule" class="hover:text-white transition">Расписание</a></li>
+                        <li><a href="#booking" class="hover:text-white transition">Запись</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Мы в соцсетях</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                            <i class="fab fa-telegram-plane"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                            <i class="fab fa-vk"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                    
+                    <h4 class="font-bold text-lg mt-6 mb-4">Приложение</h4>
+                    <div class="flex space-x-2">
+                        <a href="#" class="flex items-center justify-center bg-gray-800 hover:bg-gray-700 rounded-lg px-3 py-2">
+                            <i class="fab fa-apple mr-2"></i>
+                            <span class="text-xs">App Store</span>
+                        </a>
+                        <a href="#" class="flex items-center justify-center bg-gray-800 hover:bg-gray-700 rounded-lg px-3 py-2">
+                            <i class="fab fa-google-play mr-2"></i>
+                            <span class="text-xs">Play Store</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 Волейбол Астана. Все права защищены.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-white text-sm">Политика конфиденциальности</a>
+                    <a href="#" class="text-gray-500 hover:text-white text-sm">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex space-x-4">
+                    <button id="loginTabBtn" class="text-xl font-bold text-blue-600 border-b-2 border-blue-600 pb-1">Вход</button>
+                    <button id="registerTabBtn" class="text-xl font-bold text-gray-500 pb-1">Регистрация</button>
+                </div>
+                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <div class="mb-4">
+                    <label for="loginEmail" class="block text-gray-700 font-medium mb-2">Email или телефон</label>
+                    <input type="text" id="loginEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="loginPassword" class="block text-gray-700 font-medium mb-2">Пароль</label>
+                    <input type="password" id="loginPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-bold mb-4 transition">
+                    Войти
+                </button>
+                
+                <div class="text-center">
+                    <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Забыли пароль?</a>
+                </div>
+            </form>
+            
+            <!-- Registration Form -->
+            <form id="registerForm" class="auth-form hidden">
+                <div class="mb-4">
+                    <label for="registerName" class="block text-gray-700 font-medium mb-2">Имя</label>
+                    <input type="text" id="registerName" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="registerPhone" class="block text-gray-700 font-medium mb-2">Телефон</label>
+                    <input type="tel" id="registerPhone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-4">
+                    <label for="registerEmail" class="block text-gray-700 font-medium mb-2">Email</label>
+                    <input type="email" id="registerEmail" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="registerPassword" class="block text-gray-700 font-medium mb-2">Пароль</label>
+                    <input type="password" id="registerPassword" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-bold mb-4 transition">
+                    Зарегистрироваться
+                </button>
+                
+                <div class="text-center text-sm text-gray-600">
+                    Нажимая кнопку, вы соглашаетесь с <a href="#" class="text-blue-600 hover:text-blue-800">условиями использования</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Auth modal
+        const loginBtn = document.getElementById('loginBtn');
+        const authModal = document.getElementById('authModal');
+        const closeModal = document.getElementById('closeModal');
+        const loginTabBtn = document.getElementById('loginTabBtn');
+        const registerTabBtn = document.getElementById('registerTabBtn');
+        const authForms = document.querySelectorAll('.auth-form');
+        
+        loginBtn.addEventListener('click', () => {
+            authModal.classList.remove('hidden');
+        });
+        
+        closeModal.addEventListener('click', () => {
+            authModal.classList.add('hidden');
+        });
+        
+        // Close modal when clicking outside
+        authModal.addEventListener('click', (e) => {
+            if (e.target === authModal) {
+                authModal.classList.add('hidden');
+            }
+        });
+        
+        // Tab switching
+        loginTabBtn.addEventListener('click', () => {
+            loginTabBtn.classList.add('text-blue-600', 'border-b-2');
+            loginTabBtn.classList.remove('text-gray-500');
+            registerTabBtn.classList.add('text-gray-500');
+            registerTabBtn.classList.remove('text-blue-600', 'border-b-2');
+            authForms[0].classList.remove('hidden');
+            authForms[1].classList.add('hidden');
+        });
+        
+        registerTabBtn.addEventListener('click', () => {
+            registerTabBtn.classList.add('text-blue-600', 'border-b-2');
+            registerTabBtn.classList.remove('text-gray-500');
+            loginTabBtn.classList.add('text-gray-500');
+            loginTabBtn.classList.remove('text-blue-600', 'border-b-2');
+            authForms[1].classList.remove('hidden');
+            authForms[0].classList.add('hidden');
+        });
+        
+        // FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+        
+        // Schedule day selection
+        const scheduleDays = document.querySelectorAll('.schedule-day');
+        
+        scheduleDays.forEach(day => {
+            day.addEventListener('click', () => {
+                scheduleDays.forEach(d => d.classList.remove('active', 'bg-blue-600', 'text-white'));
+                day.classList.add('active', 'bg-blue-600', 'text-white');
+            });
+        });
+        
+        // Set first day as active
+        if (scheduleDays.length > 0) {
+            scheduleDays[0].classList.add('active', 'bg-blue-600', 'text-white');
+        }
+        
+        // Form submission
+        const bookingForm = document.getElementById('bookingForm');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Ваша заявка принята! Мы свяжемся с вами для подтверждения.');
+            bookingForm.reset();
+        });
+        
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Вход выполнен! (Это демо-версия)');
+            authModal.classList.add('hidden');
+            loginForm.reset();
+        });
+        
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Регистрация успешна! (Это демо-версия)');
+            authModal.classList.add('hidden');
+            registerForm.reset();
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=daurencd/volleyball-astana" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
